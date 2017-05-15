@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="namex_project.pens.vammethod.CompanyActivity">
+    tools:context="namex_project.pens.vammethod.Activity.Company.CompanyActivity">
 
     <GridView
         android:id="@+id/list_company"
