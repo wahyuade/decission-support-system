@@ -1,8 +1,11 @@
 package namex_project.pens.vammethod.Database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import namex_project.pens.vammethod.Database.Model.CompanyModel;
 
 /**
  * Created by SHERLY on 15/05/2017.
@@ -96,5 +99,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_DESTINATIONS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_COSTS);
         onCreate(db);
+    }
+
+    //Method insert tabel company
+    public String insertCompany(CompanyModel data){
+        String INSERT_COMPANY = "INSERT INTO "+TABLE_NAME_COMPANIES+" ("+
+                COMPANY_NAME + ")" + " VALUES ('"+
+                data.getName()+"'"+
+                ");";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(INSERT_COMPANY);
+        Cursor cur = db.query(TABLE_NAME_COMPANIES, new String[] {COMPANY_ID},COMPANY_NAME+"="+data.getName(),null,null,null,null);
+        cur.moveToPosition(0);
+        String id  = cur.getString(0);
+        db.close();
+        return id;
     }
 }
