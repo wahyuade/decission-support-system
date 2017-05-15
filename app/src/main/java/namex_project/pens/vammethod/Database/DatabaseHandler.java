@@ -116,4 +116,51 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return id;
     }
+
+    //Method insert tabel source
+    public String insertSource(CompanyModel data){
+        String INSERT_COMPANY = "INSERT INTO "+TABLE_NAME_COMPANIES+" ("+
+                COMPANY_NAME + ")" + " VALUES ('"+
+                data.getName()+"'"+
+                ");";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(INSERT_COMPANY);
+        Cursor cur = db.query(TABLE_NAME_COMPANIES, new String[] {COMPANY_ID},COMPANY_NAME+"="+data.getName(),null,null,null,null);
+        cur.moveToPosition(0);
+        String id  = cur.getString(0);
+        db.close();
+        return id;
+    }
+
+    //Method insert tabel destination
+    public String insertDestination(CompanyModel data){
+        String INSERT_COMPANY = "INSERT INTO "+TABLE_NAME_COMPANIES+" ("+
+                COMPANY_NAME + ")" + " VALUES ('"+
+                data.getName()+"'"+
+                ");";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(INSERT_COMPANY);
+        Cursor cur = db.query(TABLE_NAME_COMPANIES, new String[] {COMPANY_ID},COMPANY_NAME+"="+data.getName(),null,null,null,null);
+        cur.moveToPosition(0);
+        String id  = cur.getString(0);
+        db.close();
+        return id;
+    }
+
+    public String insertCost(CompanyModel data){
+        String INSERT_COMPANY = "INSERT INTO "+TABLE_NAME_COMPANIES+" ("+
+                COMPANY_NAME + ")" + " VALUES ('"+
+                data.getName()+"'"+
+                ");";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(INSERT_COMPANY);
+        Cursor cur = db.query(TABLE_NAME_COMPANIES, new String[] {COMPANY_ID},COMPANY_NAME+"="+data.getName(),null,null,null,null);
+        cur.moveToPosition(0);
+        String id  = cur.getString(0);
+        db.close();
+        return id;
+    }
 }
