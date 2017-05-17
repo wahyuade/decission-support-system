@@ -1,9 +1,12 @@
 package namex_project.pens.vammethod.Database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 import namex_project.pens.vammethod.Database.Model.CompanyModel;
 
@@ -30,6 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //Kolom tabel perusahaan
     private static final String COMPANY_ID = "id";
+    private static final String COMPANY_PHOTO = "photo";
     private static final String COMPANY_NAME = "name";
 
     //Kolom tabel sumber
@@ -60,6 +64,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Membuat tabel perusahaan
         String CREATE_COMPANIES_TABLE = "CREATE TABLE "+ TABLE_NAME_COMPANIES +"(" +
                 COMPANY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                COMPANY_PHOTO + " BLOP,"+
                 COMPANY_NAME + " TEXT)";
         db.execSQL(CREATE_COMPANIES_TABLE);
 
@@ -103,17 +108,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //Method insert tabel company
     public String insertCompany(CompanyModel data){
-        String INSERT_COMPANY = "INSERT INTO "+TABLE_NAME_COMPANIES+" ("+
-                COMPANY_NAME + ")" + " VALUES ('"+
-                data.getName()+"'"+
-                ");";
-
         SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL(INSERT_COMPANY);
-        Cursor cur = db.query(TABLE_NAME_COMPANIES, new String[] {COMPANY_ID},COMPANY_NAME+"="+data.getName(),null,null,null,null);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COMPANY_NAME, data.getName());
+        contentValues.put(COMPANY_PHOTO, data.getPhoto());
+        db.insert(TABLE_NAME_COMPANIES,null,contentValues);
+        Cursor cur = db.query(TABLE_NAME_COMPANIES, new String[] {COMPANY_ID},COMPANY_NAME+"='"+data.getName()+"'",null,null,null,null);
         cur.moveToPosition(0);
         String id  = cur.getString(0);
         db.close();
         return id;
+    }
+
+    public ArrayList<CompanyModel> readAll(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<CompanyModel> data = new ArrayList<CompanyModel>();
+        Cursor cur = db.query(TABLE_NAME_COMPANIES,new String[]{COMPANY_ID,COMPANY_PHOTO,COMPANY_NAME},null,null,null,null,null);
+        for (int cc=0; cc<cur.getCount();cc++){
+            cur.moveToPosition(cc);
+            data.add(new CompanyModel(Integer.parseInt(cur.getString(0)),cur.getBlob(1),cur.getString(2)));
+        }
+        db.close();
+        return data;
     }
 }
