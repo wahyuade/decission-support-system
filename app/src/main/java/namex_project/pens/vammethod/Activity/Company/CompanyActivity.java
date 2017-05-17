@@ -56,7 +56,7 @@ public class CompanyActivity extends Activity {
         add_company = (FloatingActionButton)findViewById(R.id.add_company);
 
         DatabaseHandler db = new DatabaseHandler(CompanyActivity.this);
-        data_company = db.readAll();
+        data_company = db.readCompanyAll();
         db.close();
 
         company_adapter = new CompanyGridAdapter(CompanyActivity.this, data_company, this);
