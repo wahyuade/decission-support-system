@@ -4,10 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import namex_project.pens.vammethod.Database.Model.DestinationModel;
-import namex_project.pens.vammethod.Fragment.CostFragment;
-import namex_project.pens.vammethod.Fragment.DestinationFragment;
-import namex_project.pens.vammethod.Fragment.SourceFragment;
+import namex_project.pens.vammethod.Activity.EditData.Fragment.CostFragment;
+import namex_project.pens.vammethod.Activity.EditData.Fragment.DestinationFragment;
+import namex_project.pens.vammethod.Activity.EditData.Fragment.SourceFragment;
 
 /**
  * Created by SHERLY on 19/05/2017.

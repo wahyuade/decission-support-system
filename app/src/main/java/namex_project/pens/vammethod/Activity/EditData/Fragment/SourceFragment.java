@@ -1,4 +1,4 @@
-package namex_project.pens.vammethod.Fragment;
+package namex_project.pens.vammethod.Activity.EditData.Fragment;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import namex_project.pens.vammethod.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DestinationFragment extends Fragment {
+public class SourceFragment extends Fragment {
 
 
-    public DestinationFragment() {
+    public SourceFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class DestinationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_destination, container, false);
+        return inflater.inflate(R.layout.fragment_source, container, false);
     }
 
 }

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="namex_project.pens.vammethod.Fragment.CostFragment">
+    tools:context=".Activity.EditData.Fragment.CostFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

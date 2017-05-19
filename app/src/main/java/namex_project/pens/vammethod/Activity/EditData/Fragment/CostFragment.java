@@ -1,4 +1,4 @@
-package namex_project.pens.vammethod.Fragment;
+package namex_project.pens.vammethod.Activity.EditData.Fragment;
 
 
 import android.os.Bundle;
