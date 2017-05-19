@@ -260,7 +260,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //
 //        SQLiteDatabase db = this.getWritableDatabase();
 //        db.insert(TABLE_NAME_COSTS, null, contentValues);
-//        Cursor cur = db.query(TABLE_NAME_COSTS, new String[] {COST_ID},COMPANY_NAME+"="+data.getName(),null,null,null,null);
+//        Cursor cur = db.query(TABLE_NAME_COSTS, new String[] {COST_ID},+"="+data.getName(),null,null,null,null);
 //        cur.moveToPosition(0);
 //        String id  = cur.getString(0);
 //        db.close();

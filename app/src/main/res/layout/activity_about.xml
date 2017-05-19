@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bluebg"
     tools:context="namex_project.pens.vammethod.Activity.About.AboutActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tvVAM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VAM Method"
+        android:layout_above="@+id/tvDSS"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"/>
+
+    <TextView
+        android:id="@+id/tvDSS"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DECISION SUPPORT SYSTEM"
+        android:layout_above="@+id/tvVersion"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ECEFF1"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif" />
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version 1.0.0"
+        android:layout_above="@id/icon"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif" />
+
+    <ImageView
+        android:layout_margin="10dp"
+        android:id="@+id/icon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/route"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/tvCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="© 2017 Namex Inc."
+        android:layout_below="@id/icon"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Rights Reserved."
+        android:layout_margin="10dp"
+        android:layout_below="@+id/tvCompany"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif" />
+
+</RelativeLayout>

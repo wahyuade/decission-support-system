@@ -11,9 +11,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -136,7 +138,7 @@ public class CompanyActivity extends Activity {
             }
             Bitmap bitmap = BitmapFactory.decodeStream(img);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , baos);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100 , baos);
             image_data = baos.toByteArray();
 
             company_photo.setVisibility(View.VISIBLE);
