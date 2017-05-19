@@ -49,7 +49,8 @@ public class CompanyActivity extends Activity {
     Button upload_photo;
 
     ArrayList<CompanyModel> data_company;
-    @Override
+
+@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
