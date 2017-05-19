@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -76,8 +78,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_SOURCES_TABLE = "CREATE TABLE "+ TABLE_NAME_SOURCES +"(" +
                 SOURCE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 SOURCE_NAME + " TEXT," +
-                SOURCE_CAPACITY + "INTEGER," +
-                SOURCE_ID_COMPANY + "INTEGER" +
+                SOURCE_CAPACITY + " INTEGER," +
+                SOURCE_ID_COMPANY + " INTEGER" +
                 ")";
         db.execSQL(CREATE_SOURCES_TABLE);
 
@@ -85,8 +87,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_DESTINATIONS_TABLE = "CREATE TABLE "+ TABLE_NAME_DESTINATIONS +"(" +
                 DEST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 DEST_NAME + " TEXT," +
-                DEST_CAPACITY + "INTEGER," +
-                DEST_ID_COMPANY + "INTEGER" +
+                DEST_CAPACITY + " INTEGER," +
+                DEST_ID_COMPANY + " INTEGER" +
                 ")";
         db.execSQL(CREATE_DESTINATIONS_TABLE);
 
@@ -205,15 +207,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //Method insert tabel destination
     public String insertDestination(DestinationModel data){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DEST_NAME, data.getName());
-        contentValues.put(DEST_CAPACITY, data.getNeeded_num());
-        contentValues.put(DEST_ID_COMPANY, data.getId_company());
+        ContentValues insert_des = new ContentValues();
+        insert_des.put(DEST_ID_COMPANY,data.getId_company());
+        insert_des.put(DEST_NAME, data.getName());
+        insert_des.put(DEST_CAPACITY, data.getNeeded_num());
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(TABLE_NAME_DESTINATIONS, null, contentValues);
-        Cursor cur = db.query(TABLE_NAME_DESTINATIONS, new String[] {DEST_ID},DEST_NAME+"="+data.getName(),null,null,null,null);
-        cur.moveToPosition(0);
+        db.insert(TABLE_NAME_DESTINATIONS, null, insert_des);
+        Cursor cur = db.query(TABLE_NAME_DESTINATIONS, new String[] {DEST_ID},DEST_NAME+"='"+data.getName()+"'"+" AND "+DEST_ID_COMPANY+"="+data.getId_company(),null,null,null,null);
+        cur.moveToFirst();
         String id  = cur.getString(0);
         db.close();
         return id;

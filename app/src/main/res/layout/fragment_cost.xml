@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.EditData.Fragment.CostFragment">
+    tools:context=".Activity.EditData.Fragment.Cost.CostFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

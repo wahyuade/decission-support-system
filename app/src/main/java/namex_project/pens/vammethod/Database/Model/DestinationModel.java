@@ -8,6 +8,10 @@ public class DestinationModel {
     private int id, id_company, needed_num;
     private String name;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public DestinationModel(int id_company, int needed_num, String name) {
         this.id_company = id_company;
         this.needed_num = needed_num;

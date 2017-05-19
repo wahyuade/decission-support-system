@@ -1,4 +1,4 @@
-package namex_project.pens.vammethod.Activity.EditData.Fragment;
+package namex_project.pens.vammethod.Activity.EditData.Fragment.Source;
 
 
 import android.os.Bundle;
@@ -13,12 +13,14 @@ import namex_project.pens.vammethod.R;
  * A simple {@link Fragment} subclass.
  */
 public class SourceFragment extends Fragment {
-
+    String id;
 
     public SourceFragment() {
-        // Required empty public constructor
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
