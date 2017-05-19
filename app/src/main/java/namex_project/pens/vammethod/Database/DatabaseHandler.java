@@ -166,8 +166,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_NAME_SOURCES, null, contentValues);
-        Cursor cur = db.query(TABLE_NAME_SOURCES, new String[] {SOURCE_ID},SOURCE_NAME+"="+data.getName(),null,null,null,null);
-        cur.moveToPosition(0);
+        Cursor cur = db.query(TABLE_NAME_SOURCES, new String[] {SOURCE_ID},SOURCE_NAME+"='"+data.getName()+"'"+" AND "+SOURCE_ID_COMPANY+"="+data.getId_company(),null,null,null,null);
+        cur.moveToFirst();
         String id  = cur.getString(0);
         db.close();
         return id;
