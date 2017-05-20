@@ -42,7 +42,7 @@ public class DestinationFragment extends Fragment {
 
         DatabaseHandler db = new DatabaseHandler(getActivity());
         data_destination = db.readDestinationsAll(id);
-        destinationListAdapter = new DestinationListAdapter(data_destination, getActivity(), DestinationFragment.this);
+        destinationListAdapter = new DestinationListAdapter(data_destination, getActivity(), this);
 
         list_destination.setLayoutManager(new LinearLayoutManager(getContext()));
 

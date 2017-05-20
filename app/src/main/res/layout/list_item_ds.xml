@@ -38,10 +38,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="15sp"
                     android:text=" : "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="15sp"
                     android:text=" : "/>
             </LinearLayout>
             <LinearLayout
@@ -51,11 +53,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/name"
+                    android:textSize="15sp"
                     android:textColor="@color/textData"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/capacity"
+                    android:textSize="15sp"
                     android:textColor="@color/textData"
                     android:layout_height="wrap_content" />
             </LinearLayout>
