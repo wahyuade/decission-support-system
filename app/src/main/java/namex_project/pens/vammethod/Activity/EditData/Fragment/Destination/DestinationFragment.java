@@ -41,7 +41,7 @@ public class DestinationFragment extends Fragment {
         add_destination = (FloatingActionButton)destination.findViewById(R.id.add_destination);
 
         DatabaseHandler db = new DatabaseHandler(getActivity());
-        data_destination = db.readDestinationsAll();
+        data_destination = db.readDestinationsAll(id);
         destinationListAdapter = new DestinationListAdapter(data_destination, getActivity(), DestinationFragment.this);
 
         list_destination.setLayoutManager(new LinearLayoutManager(getContext()));

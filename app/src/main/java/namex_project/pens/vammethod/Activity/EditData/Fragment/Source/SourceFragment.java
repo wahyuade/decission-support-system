@@ -46,7 +46,7 @@ public class SourceFragment extends Fragment {
         add_source = (FloatingActionButton)source.findViewById(R.id.add_source);
 
         DatabaseHandler db = new DatabaseHandler(getActivity());
-        data_source = db.readSourcesAll();
+        data_source = db.readSourcesAll(id);
         sourceListAdapter = new SourceListAdapter(data_source, getActivity(), SourceFragment.this);
 
         list_source.setLayoutManager(new LinearLayoutManager(getContext()));
