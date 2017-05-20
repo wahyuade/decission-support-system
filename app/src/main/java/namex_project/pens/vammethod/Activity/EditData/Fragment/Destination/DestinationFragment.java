@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -64,13 +65,17 @@ public class DestinationFragment extends Fragment {
                 save_destination.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DestinationModel data_insert = new DestinationModel(Integer.parseInt(id),Integer.parseInt(capacity.getText().toString()),name.getText().toString());
-                        DatabaseHandler db = new DatabaseHandler(getActivity());
-                        String data_id = db.insertDestination(data_insert);
-                        data_insert.setId(Integer.parseInt(data_id));
-                        destinationListAdapter.addDataDestination(data_insert);
-                        destinationListAdapter.notifyDataSetChanged();
-                        add_company.dismiss();
+                        if(!name.getText().toString().isEmpty() && !capacity.getText().toString().isEmpty()){
+                            DestinationModel data_insert = new DestinationModel(Integer.parseInt(id),Integer.parseInt(capacity.getText().toString()),name.getText().toString());
+                            DatabaseHandler db = new DatabaseHandler(getActivity());
+                            String data_id = db.insertDestination(data_insert);
+                            data_insert.setId(Integer.parseInt(data_id));
+                            destinationListAdapter.addDataDestination(data_insert);
+                            destinationListAdapter.notifyDataSetChanged();
+                            add_company.dismiss();
+                        }else{
+                            Toast.makeText(getContext(), "Please insert data first", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

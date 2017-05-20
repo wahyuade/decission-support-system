@@ -2,27 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:padding="7dp"
+    android:padding="4dp"
     android:layout_height="wrap_content">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:padding="5dp"
+        android:padding="2dp"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:id="@+id/item_list_ds"
-            android:orientation="vertical"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
             android:layout_height="wrap_content">
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:id="@+id/name"
-                android:text="100"
-                android:layout_height="wrap_content" />
-            <TextView
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textItem"
+                    android:textSize="15sp"
+                    android:text="Name"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textItem"
+                    android:textSize="15sp"
+                    android:text="Capacity"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:id="@+id/capacity"
-                android:text="Uji coba"
-                android:layout_height="wrap_content" />
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" : "/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/name"
+                    android:textColor="@color/textData"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/capacity"
+                    android:textColor="@color/textData"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

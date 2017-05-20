@@ -6,4 +6,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="UploadButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#4A148C</item>
+        <item name="colorButtonNormal">#6A1B9A</item>
+    </style>
+    <style name="SaveButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#64B5F6</item>
+        <item name="colorButtonNormal">#1976D2</item>
+    </style>
 </resources>
