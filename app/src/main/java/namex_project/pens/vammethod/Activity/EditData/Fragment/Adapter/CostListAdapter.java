@@ -34,7 +34,7 @@ public class CostListAdapter extends Adapter<CostListAdapter.ListAdapter>{
 
     @Override
     public CostListAdapter.ListAdapter onCreateViewHolder(ViewGroup parent, int viewType) {
-        View cost_list = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_cost,null);
+        View cost_list = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_cost,parent,false);
         return new ListAdapter(cost_list);
     }
 

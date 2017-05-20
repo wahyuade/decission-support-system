@@ -43,7 +43,6 @@ public class CostFragment extends Fragment {
         DatabaseHandler db = new DatabaseHandler(getActivity());
         destinationModel = db.readDestinationsAll(id);
         sourceModel = db.readSourcesAll(id);
-        int size = sourceModel.size()*destinationModel.size();
         ArrayList<CostDataModel> dataCost = new ArrayList<>();
 
         for (int i = 0;i<sourceModel.size();i++){
