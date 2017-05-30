@@ -61,8 +61,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COST_ID_DEST = "id_destination";
     private static final String COST_ID_COMPANY = "id_company";
 
+    private Context context;
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -216,7 +218,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SourceModel  data = new SourceModel(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), cursor.getString(3));
         return data;
     }
-
+    //Menghitung total souce
+    public int totalSource(int id_company){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_SOURCES,new String[]{SOURCE_ID},SOURCE_ID_COMPANY+"="+Integer.toString(id_company),null,null,null,null);
+        cursor.moveToFirst();
+        return cursor.getCount();
+    }
     //Membaca semua data sources
     public ArrayList<SourceModel> readSourcesAll(String id){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -264,7 +272,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         DestinationModel  data = new DestinationModel(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), cursor.getString(3));
         return data;
     }
-
+    //menghitung total destination
+    public int totalDestination(int id_company){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_DESTINATIONS,new String[]{DEST_ID},DEST_ID_COMPANY+"="+Integer.toString(id_company),null,null,null,null);
+        return cursor.getCount();
+    }
     //Membaca semua data destinations
     public ArrayList<DestinationModel> readDestinationsAll(String id){
         SQLiteDatabase db = this.getReadableDatabase();

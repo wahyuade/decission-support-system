@@ -1,8 +1,10 @@
 package namex_project.pens.vammethod;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,11 +19,11 @@ import static namex_project.pens.vammethod.Activity.EditData.EditDataActivity.id
 public class vamMethod extends AppCompatActivity {
     public static final Integer BERISI = 1;
 
-    Integer jumlah_sumber ;
-    Integer jumlah_tujuan ;
-    //v1
-    private ArrayList<DestinationModel> destinationModel;
-    private ArrayList<SourceModel> sourceModel;
+
+
+    int jumlah_sumber ;
+    int jumlah_tujuan ;
+
 
     //map(String,value);
     Map biaya = new HashMap();
@@ -33,7 +35,11 @@ public class vamMethod extends AppCompatActivity {
     Map cf = new HashMap();
     Map a = new HashMap();
 
+    int id_company;
+
     //data contoh
+
+
     int input_jumlah_sumber = 3;//m
     int input_jumlah_tujuan = 3;//n
     int[][] input_biaya = {{6,8,10},{7,11,11},{4,5,12}};
@@ -44,10 +50,12 @@ public class vamMethod extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vam_method);
-
+        Intent data = getIntent();
+        id_company = Integer.parseInt(data.getStringExtra("id_company"));
         DatabaseHandler db = new DatabaseHandler(this);
-        destinationModel = db.readDestinationsAll(id);
-        sourceModel = db.readSourcesAll(id);
+        jumlah_sumber = db.totalSource(id_company);
+        jumlah_tujuan = db.totalDestination(id_company);
+
         metodeVam();
 
     }
@@ -258,8 +266,8 @@ public class vamMethod extends AppCompatActivity {
     }
     private void cekIsiList(){
         String str;
-        Log.d(String.valueOf(jumlah_sumber),"jmlah_sumber");
-        Log.d(String.valueOf(jumlah_tujuan),"jmlah_tujuan");
+        Log.d("jmlah_sumber", Integer.toString(jumlah_sumber));
+        Log.d("jmlah_tujuan", Integer.toString(jumlah_tujuan));
         for(int i=0;i<jumlah_sumber;i++){
             for (int j=0;j<jumlah_tujuan;j++) {
                 str = String.valueOf(i).concat(String.valueOf(j));

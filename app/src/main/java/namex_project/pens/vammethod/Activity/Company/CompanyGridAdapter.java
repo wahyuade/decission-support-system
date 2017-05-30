@@ -91,8 +91,9 @@ public class CompanyGridAdapter extends RecyclerView.Adapter<CompanyGridAdapter.
                     @Override
                     public void onClick(View v) {
                         Intent i = new Intent(activity,vamMethod.class);
+                        i.putExtra("id_company", Integer.toString(data_company.get(position).getId()));
                         activity.startActivity(i);
-                        Toast.makeText(activity, "Edit data is invalid !", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(activity, "Edit data is invalid !", Toast.LENGTH_SHORT).show();
                     }
                 });
 
