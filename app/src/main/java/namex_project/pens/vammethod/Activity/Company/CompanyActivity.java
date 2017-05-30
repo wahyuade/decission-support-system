@@ -4,11 +4,8 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-<<<<<<< HEAD
-=======
 import android.app.Dialog;
 import android.content.DialogInterface;
->>>>>>> abf886998c5428d4b66589ab61fa9a0d6103aa13
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -45,13 +42,9 @@ import namex_project.pens.vammethod.Database.DatabaseHandler;
 import namex_project.pens.vammethod.Database.Model.CompanyModel;
 import namex_project.pens.vammethod.R;
 
-<<<<<<< HEAD
 public class CompanyActivity extends AppCompatActivity {
 
-=======
-public class CompanyActivity extends Activity {
     public static final int MY_PERMISSIONS_LOCATION = 123;
->>>>>>> abf886998c5428d4b66589ab61fa9a0d6103aa13
     RecyclerView list_company;
     FloatingActionButton add_company;
     CompanyGridAdapter company_adapter;
@@ -169,7 +162,6 @@ public class CompanyActivity extends Activity {
             upload_photo.setVisibility(View.VISIBLE);
         }
     }
-<<<<<<< HEAD
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -195,8 +187,6 @@ public class CompanyActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
-=======
     public boolean checkPermission()
     {
         int currentAPIVersion = Build.VERSION.SDK_INT;
@@ -227,5 +217,4 @@ public class CompanyActivity extends Activity {
             return true;
         }
     }
->>>>>>> abf886998c5428d4b66589ab61fa9a0d6103aa13
 }
