@@ -33,8 +33,8 @@ public class DestinationListAdapter extends RecyclerView.Adapter<DestinationList
 
     @Override
     public DestinationListAdapter.DSList onCreateViewHolder(ViewGroup parent, int viewType) {
-        View company_grid = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_ds, parent, false);
-        return new DSList(company_grid);
+        View destination_list = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_ds, parent, false);
+        return new DSList(destination_list);
     }
 
     @Override

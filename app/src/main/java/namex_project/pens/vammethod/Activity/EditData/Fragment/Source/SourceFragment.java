@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class SourceFragment extends Fragment {
         add_source = (FloatingActionButton)source.findViewById(R.id.add_source);
 
         DatabaseHandler db = new DatabaseHandler(getActivity());
-        data_source = db.readSourcesAll();
+        data_source = db.readSourcesAll(id);
         sourceListAdapter = new SourceListAdapter(data_source, getActivity(), SourceFragment.this);
 
         list_source.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -69,13 +70,17 @@ public class SourceFragment extends Fragment {
                 save_source.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SourceModel data_insert = new SourceModel(Integer.parseInt(id),Integer.parseInt(capacity.getText().toString()),name.getText().toString());
-                        DatabaseHandler db = new DatabaseHandler(getActivity());
-                        String data_id = db.insertSource(data_insert);
-                        data_insert.setId(Integer.parseInt(data_id));
-                        sourceListAdapter.addDataSource(data_insert);
-                        sourceListAdapter.notifyDataSetChanged();
-                        add_company.dismiss();
+                        if(!name.getText().toString().isEmpty() && !capacity.getText().toString().isEmpty()){
+                            SourceModel data_insert = new SourceModel(Integer.parseInt(id),Integer.parseInt(capacity.getText().toString()),name.getText().toString());
+                            DatabaseHandler db = new DatabaseHandler(getActivity());
+                            String data_id = db.insertSource(data_insert);
+                            data_insert.setId(Integer.parseInt(data_id));
+                            sourceListAdapter.addDataSource(data_insert);
+                            sourceListAdapter.notifyDataSetChanged();
+                            add_company.dismiss();
+                        }else{
+                            Toast.makeText(getContext(), "Please insert data first", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

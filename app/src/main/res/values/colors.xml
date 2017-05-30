@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="textItem">#263238</color>
+    <color name="textData">#303030</color>
+    <color name="cardItem">#00AA8D</color>
+    <color name="cardText">#E8F5E9</color>
 </resources>
+

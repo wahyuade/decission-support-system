@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="10dp"
     android:layout_height="match_parent">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:layout_marginTop="5dp"
         android:text="Add Source" />
-
 
     <EditText
         android:layout_width="match_parent"
@@ -17,6 +21,7 @@
     <EditText
         android:id="@+id/capacity"
         android:hint="Capacity"
+        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -24,5 +29,7 @@
         android:id="@+id/save_source"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:theme="@style/SaveButton"
+        android:textColor="#fff"
         android:text="Save"/>
 </LinearLayout>

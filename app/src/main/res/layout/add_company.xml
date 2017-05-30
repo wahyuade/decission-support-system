@@ -43,6 +43,8 @@
                     android:layout_width="wrap_content"
                     android:id="@+id/upload_photo"
                     android:visibility="gone"
+                    android:theme="@style/UploadButton"
+                    android:textColor="#fff"
                     android:layout_height="wrap_content"
                     android:text="Upload"/>
             </LinearLayout>

@@ -192,11 +192,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Membaca semua data sources
-    public ArrayList<SourceModel> readSourcesAll(){
+    public ArrayList<SourceModel> readSourcesAll(String id){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<SourceModel> data = new ArrayList<SourceModel>();
 
-        Cursor cur = db.query(TABLE_NAME_SOURCES,new String[]{SOURCE_ID,SOURCE_ID_COMPANY,SOURCE_CAPACITY,SOURCE_NAME},null,null,null,null,null);
+        Cursor cur = db.query(TABLE_NAME_SOURCES,new String[]{SOURCE_ID,SOURCE_ID_COMPANY,SOURCE_CAPACITY,SOURCE_NAME},SOURCE_ID_COMPANY+"="+id,null,null,null,null);
         for (int cc=0; cc<cur.getCount();cc++){
             cur.moveToPosition(cc);
             data.add(new SourceModel(Integer.parseInt(cur.getString(0)),Integer.parseInt(cur.getString(1)),Integer.parseInt(cur.getString(2)),cur.getString(3)));
@@ -240,11 +240,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Membaca semua data destinations
-    public ArrayList<DestinationModel> readDestinationsAll(){
+    public ArrayList<DestinationModel> readDestinationsAll(String id){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<DestinationModel> data = new ArrayList<DestinationModel>();
 
-        Cursor cur = db.query(TABLE_NAME_DESTINATIONS,new String[]{DEST_ID,DEST_ID_COMPANY,DEST_CAPACITY,DEST_NAME},null,null,null,null,null);
+        Cursor cur = db.query(TABLE_NAME_DESTINATIONS,new String[]{DEST_ID,DEST_ID_COMPANY,DEST_CAPACITY,DEST_NAME},DEST_ID_COMPANY+"="+id,null,null,null,null);
         for (int cc=0; cc<cur.getCount();cc++){
             cur.moveToPosition(cc);
             data.add(new DestinationModel(Integer.parseInt(cur.getString(0)),Integer.parseInt(cur.getString(1)),Integer.parseInt(cur.getString(2)),cur.getString(3)));
