@@ -20,7 +20,6 @@ public class vamMethod extends AppCompatActivity {
     public static final Integer BERISI = 1;
 
 
-
     int jumlah_sumber ;
     int jumlah_tujuan ;
 
@@ -50,6 +49,9 @@ public class vamMethod extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vam_method);
+
+        getSupportActionBar().hide();
+
         Intent data = getIntent();
         id_company = Integer.parseInt(data.getStringExtra("id_company"));
         DatabaseHandler db = new DatabaseHandler(this);

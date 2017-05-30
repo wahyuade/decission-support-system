@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import namex_project.pens.vammethod.Activity.EditData.EditDataActivity;
 import namex_project.pens.vammethod.Database.Model.CompanyModel;
 import namex_project.pens.vammethod.Database.Model.CostModel;
 import namex_project.pens.vammethod.Database.Model.DestinationModel;
@@ -62,9 +63,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COST_ID_COMPANY = "id_company";
 
     private Context context;
+    private EditDataActivity activity;
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+    }
+
+    public DatabaseHandler(EditDataActivity activity){
+        super(activity, DATABASE_NAME, null, DATABASE_VERSION);
+        this.activity = activity;
     }
 
     @Override
@@ -355,5 +362,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         db.close();
         return data;
+    }
+
+    public String totalDataSource(String id_company){
+        String totalDataSource;
+        int tmp = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_SOURCES,new String[]{SOURCE_CAPACITY},SOURCE_ID_COMPANY+"="+id_company,null,null,null,null);
+        if(cursor.getCount() > 0){
+            for(int i = 0; i< cursor.getCount(); i++){
+                cursor.moveToPosition(i);
+                tmp = tmp + Integer.parseInt(cursor.getString(0));
+            }
+            totalDataSource = Integer.toString(tmp);
+            return totalDataSource;
+        }else{
+            return "0";
+        }
+    }
+    public String totalDataDestination(String id_company){
+        String totalDataDestination;
+        int tmp = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_DESTINATIONS,new String[]{DEST_CAPACITY},DEST_ID_COMPANY+"="+id_company,null,null,null,null);
+        if(cursor.getCount() > 0){
+            for(int i = 0; i< cursor.getCount(); i++){
+                cursor.moveToPosition(i);
+                tmp = tmp + Integer.parseInt(cursor.getString(0));
+            }
+            totalDataDestination = Integer.toString(tmp);
+            return totalDataDestination;
+        }else{
+            return "0";
+        }
     }
 }
