@@ -64,6 +64,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private Context context;
     private EditDataActivity activity;
+
+    String hasil[][];
+    String hasil_ds[];
+
+    int data[][];
+    int data_ds[];
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -304,7 +311,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        contentValues.put(COST_ID_SOURCE, data.getId_source());
 //        contentValues.put(COST_ID_DEST, data.getId_destination());
 //        contentValues.put(COST_ID_COMPANY, data.getId_company());
-//        contentValues.put(COST_COST, data.getCost());
+//        contentValues.put(COST_COST, data.getKeyCost());
 //
 //        SQLiteDatabase db = this.getWritableDatabase();
 //        db.insert(TABLE_NAME_COSTS, null, contentValues);
@@ -395,5 +402,78 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }else{
             return "0";
         }
+    }
+    public String[][] getKeyCost(String id_company, String tot_s, String tot_d){
+        int j=-1;
+        hasil = new String[Integer.parseInt(tot_s)][Integer.parseInt(tot_d)];
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_COSTS,new String[]{COST_ID}, COST_ID_COMPANY+"="+id_company,null,null,null,COST_ID_SOURCE,null);
+        if(cursor.getCount()>0){
+            for (int i = 0;i<cursor.getCount();i++){
+                cursor.moveToPosition(i);
+                if(i%Integer.parseInt(tot_s)==0){
+                    j++;
+                }
+                hasil[j][i%Integer.parseInt(tot_d)] = cursor.getString(0);
+            }
+        }
+        return hasil;
+    }
+    public  String[] getKeySource(String id_company, String tot_s){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_SOURCES,new String[]{SOURCE_ID}, SOURCE_ID_COMPANY+"="+id_company,null,null,null,SOURCE_ID,null);
+        hasil_ds = new String[Integer.parseInt(tot_s)];
+        for (int i = 0;i<cursor.getCount();i++){
+            cursor.moveToPosition(i);
+            hasil_ds[i] = cursor.getString(0);
+        }
+        return hasil_ds;
+    }
+    public  String[] getKeyDestination(String id_company, String tot_d){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_DESTINATIONS,new String[]{DEST_ID}, DEST_ID_COMPANY+"="+id_company,null,null,null,DEST_ID,null);
+        hasil_ds = new String[Integer.parseInt(tot_d)];
+        for (int i = 0;i<cursor.getCount();i++){
+            cursor.moveToPosition(i);
+            hasil_ds[i] = cursor.getString(0);
+        }
+        return hasil_ds;
+    }
+
+    public int[][] getCost(String id_company, String tot_s, String tot_d){
+        int j=-1;
+        data = new int[Integer.parseInt(tot_s)][Integer.parseInt(tot_d)];
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_COSTS,new String[]{COST_COST}, COST_ID_COMPANY+"="+id_company,null,null,null,COST_ID_SOURCE,null);
+        if(cursor.getCount()>0){
+            for (int i = 0;i<cursor.getCount();i++){
+                cursor.moveToPosition(i);
+                if(i%Integer.parseInt(tot_s)==0){
+                    j++;
+                }
+                data[j][i%Integer.parseInt(tot_d)] = Integer.parseInt(cursor.getString(0));
+            }
+        }
+        return data;
+    }
+    public  int[] getSource(String id_company, String tot_s){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_SOURCES,new String[]{SOURCE_CAPACITY}, SOURCE_ID_COMPANY+"="+id_company,null,null,null,SOURCE_ID,null);
+        data_ds = new int[Integer.parseInt(tot_s)];
+        for (int i = 0;i<cursor.getCount();i++){
+            cursor.moveToPosition(i);
+            data_ds[i] = Integer.parseInt(cursor.getString(0));
+        }
+        return data_ds;
+    }
+    public  int[] getDestination(String id_company, String tot_d){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_DESTINATIONS,new String[]{DEST_CAPACITY}, DEST_ID_COMPANY+"="+id_company,null,null,null,DEST_ID,null);
+        data_ds = new int[Integer.parseInt(tot_d)];
+        for (int i = 0;i<cursor.getCount();i++){
+            cursor.moveToPosition(i);
+            data_ds[i] = Integer.parseInt(cursor.getString(0));
+        }
+        return data_ds;
     }
 }
