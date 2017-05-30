@@ -4,7 +4,7 @@ package namex_project.pens.vammethod.Database.Model;
  * Created by Wahyu Ade Sasongko on 5/15/2017.
  */
 
-public class CostModel {
+public class  CostModel {
     private int id, id_source, id_destination, id_company, cost;
 
     public CostModel(int id, int id_source, int id_destination, int id_company, int cost) {
@@ -40,5 +40,9 @@ public class CostModel {
 
     public int getCost() {
         return cost;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

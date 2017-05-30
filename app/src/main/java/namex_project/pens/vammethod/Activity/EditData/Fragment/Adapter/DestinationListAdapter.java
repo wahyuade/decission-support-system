@@ -42,6 +42,8 @@ public class DestinationListAdapter extends RecyclerView.Adapter<DestinationList
         holder.name.setText(data_list.get(position).getName());
         holder.capacity.setText(Integer.toString(data_list.get(position).getNeeded_num()));
 
+        holder.number.setText(Integer.toString(position+1)+". ");
+
         holder.item_list_ds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,12 +58,13 @@ public class DestinationListAdapter extends RecyclerView.Adapter<DestinationList
     }
 
     class DSList extends ViewHolder {
-        TextView capacity, name;
+        TextView capacity, name, number;
         LinearLayout item_list_ds;
         private DSList(View view){
             super(view);
             capacity = (TextView)view.findViewById(R.id.capacity);
             name = (TextView)view.findViewById(R.id.name);
+            number = (TextView)view.findViewById(R.id.number);
             item_list_ds = (LinearLayout)view.findViewById(R.id.item_list_ds);
         }
     }

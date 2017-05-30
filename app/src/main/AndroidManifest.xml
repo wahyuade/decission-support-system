@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.Company.CompanyActivity"
             android:label="VAM Method"
@@ -28,6 +29,20 @@
             <!--android:name=".Activity.Company.CompanyActivity"-->
             <!--android:label="@string/title_activity_coba"-->
             <!--android:theme="@style/AppTheme.NoActionBar"></activity>-->
+=======
+        android:theme="@style/Theme.AppCompat.Light">
+        <activity android:name=".Activity.Company.CompanyActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.SpashActivity" />
+        <activity android:name=".Activity.EditData.EditDataActivity" />
+        <activity android:name=".Activity.About.AboutActivity" />
+        <activity android:name=".vamMethod"></activity>
+>>>>>>> abf886998c5428d4b66589ab61fa9a0d6103aa13
     </application>
 
 </manifest>

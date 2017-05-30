@@ -1,15 +1,26 @@
 package namex_project.pens.vammethod.Activity.Company;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+<<<<<<< HEAD
+=======
+import android.app.Dialog;
+import android.content.DialogInterface;
+>>>>>>> abf886998c5428d4b66589ab61fa9a0d6103aa13
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,8 +45,13 @@ import namex_project.pens.vammethod.Database.DatabaseHandler;
 import namex_project.pens.vammethod.Database.Model.CompanyModel;
 import namex_project.pens.vammethod.R;
 
+<<<<<<< HEAD
 public class CompanyActivity extends AppCompatActivity {
 
+=======
+public class CompanyActivity extends Activity {
+    public static final int MY_PERMISSIONS_LOCATION = 123;
+>>>>>>> abf886998c5428d4b66589ab61fa9a0d6103aa13
     RecyclerView list_company;
     FloatingActionButton add_company;
     CompanyGridAdapter company_adapter;
@@ -69,54 +85,56 @@ public class CompanyActivity extends AppCompatActivity {
         company_adapter = new CompanyGridAdapter(CompanyActivity.this, data_company, this);
 
         list_company.setLayoutManager(new GridLayoutManager(this,2));
-
+        checkPermission();
         list_company.setAdapter(company_adapter);
 
-        add_company.setOnClickListener(new View.OnClickListener() {
-            Button select_photo;
-            EditText company_name;
-            @Override
-            public void onClick(View v) {
-                LayoutInflater inflater = getLayoutInflater();
-                final AlertDialog add_company = new AlertDialog.Builder(CompanyActivity.this).create();
-                add_company.setView(inflater.inflate(R.layout.add_company, null));
-                add_company.show();
+        if(checkPermission()){
+            add_company.setOnClickListener(new View.OnClickListener() {
+                Button select_photo;
+                EditText company_name;
+                @Override
+                public void onClick(View v) {
+                    LayoutInflater inflater = getLayoutInflater();
+                    final AlertDialog add_company = new AlertDialog.Builder(CompanyActivity.this).create();
+                    add_company.setView(inflater.inflate(R.layout.add_company, null));
+                    add_company.show();
 
-                upload_photo = (Button)add_company.findViewById(R.id.upload_photo);
-                select_photo = (Button)add_company.findViewById(R.id.company_select_photo);
-                company_name = (EditText)add_company.findViewById(R.id.company_name);
-                company_photo = (ImageView)add_company.findViewById(R.id.company_photo);
+                    upload_photo = (Button)add_company.findViewById(R.id.upload_photo);
+                    select_photo = (Button)add_company.findViewById(R.id.company_select_photo);
+                    company_name = (EditText)add_company.findViewById(R.id.company_name);
+                    company_photo = (ImageView)add_company.findViewById(R.id.company_photo);
 
-                select_photo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(CompanyActivity.this, "Pilih image", Toast.LENGTH_SHORT).show();
-                        Intent open_gallery = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(open_gallery, RESULT_LOAD_IMAGE);
-                    }
-                });
-
-                upload_photo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String name = company_name.getText().toString();
-                        if(!name.isEmpty() && image_data!=null){
-                            CompanyModel company = new CompanyModel(image_data,name);
-
-                            DatabaseHandler db = new DatabaseHandler(CompanyActivity.this);
-                            String id = db.insertCompany(company);
-                            company.setId(Integer.parseInt(id));
-                            company_adapter.addItemCompany(company);
-                            company_adapter.notifyDataSetChanged();
-                            db.close();
-
-                            Toast.makeText(CompanyActivity.this, "Company successfull inserted!", Toast.LENGTH_SHORT).show();
-                            add_company.dismiss();
+                    select_photo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(CompanyActivity.this, "Pilih image", Toast.LENGTH_SHORT).show();
+                            Intent open_gallery = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(open_gallery, RESULT_LOAD_IMAGE);
                         }
-                    }
-                });
-            }
-        });
+                    });
+
+                    upload_photo.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String name = company_name.getText().toString();
+                            if(!name.isEmpty() && image_data!=null){
+                                CompanyModel company = new CompanyModel(image_data,name);
+
+                                DatabaseHandler db = new DatabaseHandler(CompanyActivity.this);
+                                String id = db.insertCompany(company);
+                                company.setId(Integer.parseInt(id));
+                                company_adapter.addItemCompany(company);
+                                company_adapter.notifyDataSetChanged();
+                                db.close();
+
+                                Toast.makeText(CompanyActivity.this, "Company successfull inserted!", Toast.LENGTH_SHORT).show();
+                                add_company.dismiss();
+                            }
+                        }
+                    });
+                }
+            });
+        }
 
     }
 
@@ -151,6 +169,7 @@ public class CompanyActivity extends AppCompatActivity {
             upload_photo.setVisibility(View.VISIBLE);
         }
     }
+<<<<<<< HEAD
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -177,4 +196,36 @@ public class CompanyActivity extends AppCompatActivity {
     }
 
 
+=======
+    public boolean checkPermission()
+    {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if(currentAPIVersion>=android.os.Build.VERSION_CODES.M)
+        {
+            if (ContextCompat.checkSelfPermission(CompanyActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity)CompanyActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(CompanyActivity.this);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setTitle("Permission necessary");
+                    alertBuilder.setMessage("Allow to access storage ?");
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions((Activity)CompanyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_LOCATION);
+                        }
+                    });
+                    AlertDialog alert = alertBuilder.create();
+                    alert.show();
+                } else {
+                    ActivityCompat.requestPermissions((Activity)CompanyActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_LOCATION);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+>>>>>>> abf886998c5428d4b66589ab61fa9a0d6103aa13
 }
