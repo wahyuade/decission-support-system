@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import namex_project.pens.vammethod.Activity.EditData.EditDataActivity;
 import namex_project.pens.vammethod.Database.Model.CompanyModel;
 import namex_project.pens.vammethod.R;
+import namex_project.pens.vammethod.vamMethod;
 
 /**
  * Created by Wahyu Ade Sasongko on 5/15/2017.
@@ -89,6 +90,8 @@ public class CompanyGridAdapter extends RecyclerView.Adapter<CompanyGridAdapter.
                 route.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Intent i = new Intent(activity,vamMethod.class);
+                        activity.startActivity(i);
                         Toast.makeText(activity, "Edit data is invalid !", Toast.LENGTH_SHORT).show();
                     }
                 });

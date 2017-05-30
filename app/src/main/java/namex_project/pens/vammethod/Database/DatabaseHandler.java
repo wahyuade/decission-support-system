@@ -96,9 +96,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_COSTS_TABLE = "CREATE TABLE "+ TABLE_NAME_COSTS +"(" +
                 COST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 COST_COST + " INTEGER," +
-                COST_ID_SOURCE + "INTEGER," +
-                COST_ID_DEST + "INTEGER" +
-                COST_ID_COMPANY + "INTEGER" +
+                COST_ID_SOURCE + " INTEGER," +
+                COST_ID_DEST + " INTEGER," +
+                COST_ID_COMPANY + " INTEGER" +
                 ")";
         db.execSQL(CREATE_COSTS_TABLE);
     }
@@ -121,6 +121,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_NAME_COMPANIES,null,contentValues);
         Cursor cur = db.query(TABLE_NAME_COMPANIES, new String[] {COMPANY_ID},COMPANY_NAME+"='"+data.getName()+"'",null,null,null,null);
+        cur.moveToPosition(0);
+        String id  = cur.getString(0);
+        db.close();
+        return id;
+    }
+//    private static final String COST_ID = "id";
+//    private static final String COST_COST = "cost";
+//    private static final String COST_ID_SOURCE = "id_source";
+//    private static final String COST_ID_DEST = "id_destination";
+//    private static final String COST_ID_COMPANY = "id_company";
+    //Method insert tabel cost
+    public String insertCost(CostModel data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COST_COST, data.getCost());
+        contentValues.put(COST_ID_SOURCE, data.getId_source());
+        contentValues.put(COST_ID_DEST, data.getId_destination());
+        contentValues.put(COST_ID_COMPANY, data.getId_company());
+
+        db.insert(TABLE_NAME_COSTS,null,contentValues);
+        Cursor cur = db.query(TABLE_NAME_COSTS,new String[] {
+                COST_ID,
+                COST_ID_SOURCE,
+                COST_ID_DEST,
+                COST_ID_COMPANY,
+                COST_COST}, COST_ID_SOURCE + "="+Integer.toString(data.getId_source())+" and "+COST_ID_DEST+"="+Integer.toString(data.getId_destination())+" and "+COST_ID_COMPANY+"="+Integer.toString(data.getId_company()),null,null,null,null);
         cur.moveToPosition(0);
         String id  = cur.getString(0);
         db.close();
@@ -270,7 +296,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //    }
 
     //Method membaca satu cost
-    public CostModel readCost(int ID) {
+    public CostModel readCost(int id_Source, int id_Dest, int id_company) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME_COSTS, new String[] {
@@ -279,13 +305,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         COST_ID_DEST,
                         COST_ID_COMPANY,
                         COST_COST},
-                COST_ID + "=?", new String[] {Integer.toString(ID)}, null, null, null);
+                COST_ID_SOURCE + "="+id_Source+" and "+COST_ID_DEST+"="+id_Dest+" and "+COST_ID_COMPANY+"="+id_company, null,null, null, null);
 
-        if(cursor != null)
+        if(cursor != null){
             cursor.moveToFirst();
+            if(cursor.getCount()>0){
+                CostModel  data = new CostModel(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)));
+                return data;
+            }else{
+                CostModel  data = new CostModel(0,0,0,0,0);
+                return data;
+            }
+        }else{
+            CostModel  data = new CostModel(0,0,0,0);
+            return data;
+        }
+    }
 
-        CostModel  data = new CostModel(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)));
-        return data;
+    public boolean updateCost(int id_source, int id_destination, int id_company, int cost){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues update_cost = new ContentValues();
+        update_cost.put(COST_COST, cost);
+        db.update(TABLE_NAME_COSTS,update_cost,COST_ID_SOURCE + "="+id_source+" and "+COST_ID_DEST+"="+id_destination+" and "+COST_ID_COMPANY+"="+id_company,null);
+        return true;
     }
 
     //Membaca semua data costs

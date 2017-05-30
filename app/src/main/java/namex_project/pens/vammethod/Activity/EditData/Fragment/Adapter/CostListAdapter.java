@@ -2,6 +2,7 @@ package namex_project.pens.vammethod.Activity.EditData.Fragment.Adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.IntentService;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
@@ -17,7 +18,9 @@ import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import namex_project.pens.vammethod.Activity.EditData.Fragment.Cost.CostFragment;
+import namex_project.pens.vammethod.Database.DatabaseHandler;
 import namex_project.pens.vammethod.Database.Model.CostDataModel;
+import namex_project.pens.vammethod.Database.Model.CostModel;
 import namex_project.pens.vammethod.Database.Model.DestinationModel;
 import namex_project.pens.vammethod.Database.Model.SourceModel;
 import namex_project.pens.vammethod.R;
@@ -48,6 +51,12 @@ public class CostListAdapter extends Adapter<CostListAdapter.ListAdapter>{
     public void onBindViewHolder(final ListAdapter holder, final int position) {
         holder.from.setText(data_cost.get(position).getSourceModel().getName());
         holder.to.setText(data_cost.get(position).getDestinationModel().getName());
+        DatabaseHandler db = new DatabaseHandler(activity);
+        final int id_source = data_cost.get(position).getSourceModel().getId();
+        final int id_dest = data_cost.get(position).getDestinationModel().getId();
+        final int id_comp = data_cost.get(position).getDestinationModel().getId_company();
+        final CostModel uki = db.readCost(id_source,id_dest,id_comp);
+        holder.cost.setText(Integer.toString(uki.getCost()));
         holder.item_cost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +80,15 @@ public class CostListAdapter extends Adapter<CostListAdapter.ListAdapter>{
                         String cost_data = cost.getText().toString();
                         if(!cost_data.isEmpty()){
                             holder.cost.setText(cost_data);
-
+                            DatabaseHandler db = new DatabaseHandler(activity);
+                            if(uki.getId()==0){
+                                CostModel cm = new CostModel(data_cost.get(position).getSourceModel().getId(),data_cost.get(position).getDestinationModel().getId(),data_cost.get(position).getDestinationModel().getId_company(),Integer.parseInt(cost_data));
+                                int id =  Integer.parseInt(db.insertCost(cm));
+                                cm.setId(id);
+                            }else{
+                                db.updateCost(id_source,id_dest,id_comp,Integer.parseInt(cost_data));
+                            }
+                            db.close();
 
                             edit_cost.dismiss();
                         }else{
