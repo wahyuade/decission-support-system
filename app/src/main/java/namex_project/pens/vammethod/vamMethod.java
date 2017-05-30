@@ -65,23 +65,23 @@ public class vamMethod extends AppCompatActivity {
         metodeVam();
     }
     private void rubahMenjadiArrayList(){
-        jumlah_tujuan =input_jumlah_tujuan;
-        jumlah_sumber=input_jumlah_sumber;
+        jumlah_tujuan = input_jumlah_tujuan;
+        jumlah_sumber = input_jumlah_sumber;
         for(int i=0;i<jumlah_sumber;i++){
             for (int j=0;j<jumlah_tujuan;j++) {
                 biaya.put(key_cost[i][j],input_biaya[i][j]);
             }
         }
         for (int i=0;i<jumlah_tujuan;i++)
-            tujuan.put(key_destination[i],input_tujuan[i]);
+            tujuan.put(i,input_tujuan[i]);
         for (int i=0;i<jumlah_sumber;i++)
-            sumber.put(key_source[i],input_sumber[i]);
+            sumber.put(i,input_sumber[i]);
     }
     void metodeVam() {
         rubahMenjadiArrayList();
         cekIsiList();
         int k;
-        String str;
+
         int i,j,max,min,p,s=0,t = 0,sum = 0;
 
         for (i=0;i<jumlah_sumber;i++)
@@ -106,7 +106,6 @@ public class vamMethod extends AppCompatActivity {
                     // a[] digunakan untuk menyimpan cost dalam bentuk 1 dimensi dan memprosesnya
                     for ( j=0;j<jumlah_tujuan;j++){
                         if (cf.get(j)!=BERISI){
-                            str = String.valueOf(i).concat(String.valueOf(j));
                             a.put(k++,biaya.get(key_cost[i][j]));
                         }
                     }
@@ -126,7 +125,6 @@ public class vamMethod extends AppCompatActivity {
                 if (cf.get(i)!=BERISI){
                     for (j=0;j<jumlah_sumber;j++) {
                         if (rf.get(j)!= BERISI) {
-                            str = String.valueOf(j).concat(String.valueOf(i));
                             //Log.d(String.valueOf(biaya.get(str)),"nilai biaya.get(str)=======================================");
                             a.put(k++, biaya.get(key_cost[j][i]));
                         }
@@ -175,7 +173,6 @@ public class vamMethod extends AppCompatActivity {
                 if (cf.get(p)!=BERISI){
                     for (i=0;i<jumlah_sumber;i++){
                         if (rf.get(i)!=BERISI){
-                            str= String.valueOf(i).concat(String.valueOf(p));
                             if(min> (int) biaya.get(key_cost[i][p])){
                                 //min digunakan untuk mencari nilai cost terkecil
                                 min= (int) biaya.get(key_cost[i][p]);
@@ -193,7 +190,6 @@ public class vamMethod extends AppCompatActivity {
                 if (rf.get(p)!=BERISI){
                     for(i=0;i<jumlah_tujuan;i++){
                         if (cf.get(i)!=BERISI){
-                            str= String.valueOf(p).concat(String.valueOf(i));
                             if (min>(int) biaya.get(key_cost[p][i])){
                                 //min digunakan untuk mencari nilai cost terkecil
                                 min=(int) biaya.get(key_cost[p][i]);
@@ -211,13 +207,12 @@ public class vamMethod extends AppCompatActivity {
             //Log.d(String.valueOf(t),"nilai T");
 
             //Jika nilai source capacity kurang dari dest capacity
-            if((int)sumber.get(key_source[s])<(int)tujuan.get(key_destination[t])){
+            if((int)sumber.get(s)<(int)tujuan.get(t)){
                 //sum = digunakan untuk menyimpan jumlah biaya transportasi
-                str= String.valueOf(s).concat(String.valueOf(t));
-                sum=sum+ (int)biaya.get(key_cost[s][t]) * (int) sumber.get(key_source[s]);
-                Log.d(str,"lokasi yang akan di isi");
-                Log.d(String.valueOf(sumber.get(key_source[s])),"nilai");
-                tujuan.put(t,(int)tujuan.get(key_destination[t])-(int)sumber.get(key_source[s]));
+                sum=sum+ (int)biaya.get(key_cost[s][t]) * (int) sumber.get(s);
+                Log.d(key_cost[s][t],"lokasi yang akan di isi");
+                Log.d(String.valueOf(sumber.get(s)),"nilai");
+                tujuan.put(t,(int)tujuan.get(t)-(int)sumber.get(s));
                 //rf digunakan untuk mengandai bahwa baris tsb tidak akan diproses kembali saat pencarian selisih
                 rf.put(s,1);
                 //jumlah baris yang akan dikurangi
@@ -225,12 +220,11 @@ public class vamMethod extends AppCompatActivity {
             }
 
             //Jika nilai source capacity lebih dari dest capacity
-            else if((int)sumber.get(key_source[s])>(int)tujuan.get(key_destination[t])){
-                str = String.valueOf(s).concat(String.valueOf(t));
-                sum=sum+ (int)biaya.get(key_cost[s][t])*(int)tujuan.get(key_destination[t]);
-                Log.d(str,"lokasi yang akan di isi");
-                Log.d(String.valueOf(tujuan.get(key_destination[t])),"nilai");
-                sumber.put(s,(int)sumber.get(key_source[s])-(int)tujuan.get(key_destination[t]));
+            else if((int)sumber.get(s)>(int)tujuan.get(t)){
+                sum=sum+ (int)biaya.get(key_cost[s][t])*(int)tujuan.get(t);
+                Log.d(key_cost[s][t],"lokasi yang akan di isi");
+                Log.d(String.valueOf(tujuan.get(t)),"nilai");
+                sumber.put(s,(int)sumber.get(s)-(int)tujuan.get(t));
                 //rf digunakan untuk mengandai bahwa kolom tsb tidak akan diproses kembali saat pencarian selisih
                 cf.put(t,1);
                 //jumlah kolom akan dikurangi
@@ -238,11 +232,10 @@ public class vamMethod extends AppCompatActivity {
             }
 
             //Jika source capacity = dest capacity
-            else if((int) sumber.get(key_source[s])==(int) tujuan.get(key_destination[t])){
-                str = String.valueOf(s).concat(String.valueOf(t));
-                sum=sum+ (int)biaya.get(key_cost[s][t])*(int)tujuan.get(key_destination[t]);
-                Log.d(str,"lokasi yang akan di isi");
-                Log.d(String.valueOf(tujuan.get(key_destination[t])),"nilai");
+            else if((int) sumber.get(s)==(int) tujuan.get(t)){
+                sum=sum+ (int)biaya.get(key_cost[s][t])*(int)tujuan.get(t);
+                Log.d(key_cost[s][t],"lokasi yang akan di isi");
+                Log.d(String.valueOf(tujuan.get(t)),"nilai");
                 cf.put(t,1);
                 rf.put(s,1);
                 dinamis_sumber--;
@@ -278,8 +271,8 @@ public class vamMethod extends AppCompatActivity {
             }
         }
         for (int i=0;i<jumlah_tujuan;i++)
-            Log.d(String.valueOf(tujuan.get(key_destination[i])),"tujuan");
+            Log.d(String.valueOf(tujuan.get(i)),"tujuan");
         for (int i=0;i<jumlah_sumber;i++)
-            Log.d(String.valueOf(sumber.get(key_source[i])),"sumber");
+            Log.d(String.valueOf(sumber.get(i)),"sumber");
     }
 }
