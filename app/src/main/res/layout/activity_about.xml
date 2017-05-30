@@ -23,6 +23,7 @@
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:letterSpacing=".05"
         android:text="DECISION SUPPORT SYSTEM"
         android:layout_above="@+id/tvVersion"
         android:layout_centerHorizontal="true"
@@ -44,9 +45,9 @@
     <ImageView
         android:layout_margin="10dp"
         android:id="@+id/icon"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/route"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/icon"
         android:layout_centerInParent="true"/>
 
     <TextView
@@ -61,11 +62,59 @@
         android:fontFamily="sans-serif" />
 
     <TextView
+        android:id="@+id/sangsya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eka Anre Sangsya (2103151032)"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/tvCompany"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif" />
+
+    <TextView
+        android:id="@+id/sherly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sherly Febrina Luhukay (2103151035)"
+        android:layout_margin="2dp"
+        android:layout_below="@+id/sangsya"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif" />
+
+    <TextView
+        android:id="@+id/wahyu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wahyu Ade Sasongko (2103151042)"
+        android:layout_margin="2dp"
+        android:layout_below="@+id/sherly"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif" />
+
+    <TextView
+        android:id="@+id/uki"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Muhibush Shulhi Muhammad (2103151054)"
+        android:layout_margin="2dp"
+        android:layout_below="@+id/wahyu"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="All Rights Reserved."
         android:layout_margin="10dp"
-        android:layout_below="@+id/tvCompany"
+        android:layout_below="@+id/uki"
         android:layout_centerHorizontal="true"
         android:textColor="#fff"
         android:textSize="16sp"

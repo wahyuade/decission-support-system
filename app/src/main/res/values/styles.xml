@@ -1,24 +1,27 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-<<<<<<< HEAD
 
-    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-=======
     <style name="UploadButton" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">#4A148C</item>
         <item name="colorButtonNormal">#6A1B9A</item>
     </style>
+
     <style name="SaveButton" parent="Theme.AppCompat.Light">
         <item name="colorControlHighlight">#64B5F6</item>
         <item name="colorButtonNormal">#1976D2</item>
     </style>
->>>>>>> d314e19d57cc380dc5c1ec507da5b87ba2e81207
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
