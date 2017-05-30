@@ -4,11 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VAMMethod.iml" filepath="$PROJECT_DIR$/VAMMethod.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/decission-support-system.iml" filepath="$PROJECT_DIR$/decission-support-system.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/dss.iml" filepath="$PROJECT_DIR$/dss.iml" />
->>>>>>> 044549c4dace26ff0901315e09c4776de358b069
     </modules>
   </component>
 </project>
