@@ -9,7 +9,7 @@
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.Company.CompanyActivity"
@@ -24,7 +24,7 @@
     <activity android:name=".Activity.SpashActivity" />
     <activity android:name=".Activity.EditData.EditDataActivity" />
     <activity android:name=".Activity.About.AboutActivity" />
-    <activity android:name=".vamMethod"></activity>
+    <activity android:name=".Activity.Route.vamMethod"></activity>
         <!--<activity-->
             <!--android:name=".Activity.Company.CompanyActivity"-->
             <!--android:label="@string/title_activity_coba"-->

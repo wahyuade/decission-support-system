@@ -2,7 +2,6 @@ package namex_project.pens.vammethod.Activity.Company;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -10,18 +9,17 @@ import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import namex_project.pens.vammethod.Activity.EditData.EditDataActivity;
+import namex_project.pens.vammethod.Database.DatabaseHandler;
 import namex_project.pens.vammethod.Database.Model.CompanyModel;
 import namex_project.pens.vammethod.R;
-import namex_project.pens.vammethod.vamMethod;
+import namex_project.pens.vammethod.Activity.Route.vamMethod;
 
 /**
  * Created by Wahyu Ade Sasongko on 5/15/2017.
@@ -92,8 +90,8 @@ public class CompanyGridAdapter extends RecyclerView.Adapter<CompanyGridAdapter.
                     public void onClick(View v) {
                         Intent i = new Intent(activity,vamMethod.class);
                         i.putExtra("id_company", Integer.toString(data_company.get(position).getId()));
+                        DatabaseHandler db = new DatabaseHandler(activity);
                         activity.startActivity(i);
-//                        Toast.makeText(activity, "Edit data is invalid !", Toast.LENGTH_SHORT).show();
                     }
                 });
 
