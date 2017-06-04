@@ -26,6 +26,7 @@ public class DestinationFragment extends Fragment {
     private String id;
     private FloatingActionButton add_destination;
     DestinationListAdapter destinationListAdapter;
+    View emptyView;
 
     public DestinationFragment() {}
     private ArrayList<DestinationModel> data_destination = new ArrayList<>();
@@ -39,6 +40,7 @@ public class DestinationFragment extends Fragment {
         View destination = inflater.inflate(R.layout.fragment_destination, container, false);
         list_destination = (RecyclerView)destination.findViewById(R.id.list_destination);
         add_destination = (FloatingActionButton)destination.findViewById(R.id.add_destination);
+        emptyView = destination.findViewById(R.id.empty_view);
 
         DatabaseHandler db = new DatabaseHandler(getActivity());
         data_destination = db.readDestinationsAll(id);
@@ -72,6 +74,7 @@ public class DestinationFragment extends Fragment {
                             data_insert.setId(Integer.parseInt(data_id));
                             destinationListAdapter.addDataDestination(data_insert);
                             destinationListAdapter.notifyDataSetChanged();
+                            check();
                             add_company.dismiss();
                         }else{
                             Toast.makeText(getContext(), "Please insert data first", Toast.LENGTH_SHORT).show();
@@ -80,8 +83,18 @@ public class DestinationFragment extends Fragment {
                 });
             }
         });
-
+        check();
         return destination;
     }
 
+    public void check() {
+        if (destinationListAdapter.getItemCount() == 0) {
+            list_destination.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            list_destination.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+    }
 }

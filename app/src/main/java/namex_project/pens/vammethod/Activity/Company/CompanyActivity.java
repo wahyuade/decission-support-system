@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -46,6 +45,7 @@ public class CompanyActivity extends AppCompatActivity {
 
     public static final int MY_PERMISSIONS_LOCATION = 123;
     RecyclerView list_company;
+    View emptyView;
     FloatingActionButton add_company;
     CompanyGridAdapter company_adapter;
 
@@ -70,6 +70,7 @@ public class CompanyActivity extends AppCompatActivity {
 
         list_company = (RecyclerView) findViewById(R.id.list_company);
         add_company = (FloatingActionButton)findViewById(R.id.add_company);
+        emptyView = findViewById(R.id.empty_view);
 
         DatabaseHandler db = new DatabaseHandler(CompanyActivity.this);
         data_company = db.readCompanyAll();
@@ -82,6 +83,7 @@ public class CompanyActivity extends AppCompatActivity {
         list_company.setAdapter(company_adapter);
 
         if(checkPermission()){
+
             add_company.setOnClickListener(new View.OnClickListener() {
                 Button select_photo;
                 EditText company_name;
@@ -121,6 +123,7 @@ public class CompanyActivity extends AppCompatActivity {
                                 db.close();
 
                                 Toast.makeText(CompanyActivity.this, "Company successfull inserted!", Toast.LENGTH_SHORT).show();
+                                check();
                                 add_company.dismiss();
                             }
                         }
@@ -128,7 +131,7 @@ public class CompanyActivity extends AppCompatActivity {
                 }
             });
         }
-
+        check();
     }
 
     @Override
@@ -215,6 +218,17 @@ public class CompanyActivity extends AppCompatActivity {
             }
         } else {
             return true;
+        }
+    }
+
+    public void check() {
+        if (company_adapter.getItemCount() == 0) {
+            list_company.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            list_company.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
         }
     }
 }

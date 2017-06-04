@@ -31,6 +31,7 @@ public class SourceFragment extends Fragment {
     private String id;
     private FloatingActionButton add_source;
     SourceListAdapter sourceListAdapter;
+    View emptyView;
 
     public SourceFragment() {}
     private ArrayList<SourceModel> data_source = new ArrayList<>();
@@ -44,6 +45,7 @@ public class SourceFragment extends Fragment {
         View source = inflater.inflate(R.layout.fragment_source, container, false);
         list_source = (RecyclerView)source.findViewById(R.id.list_source);
         add_source = (FloatingActionButton)source.findViewById(R.id.add_source);
+        emptyView = source.findViewById(R.id.empty_view);
 
         DatabaseHandler db = new DatabaseHandler(getActivity());
         data_source = db.readSourcesAll(id);
@@ -77,6 +79,7 @@ public class SourceFragment extends Fragment {
                             data_insert.setId(Integer.parseInt(data_id));
                             sourceListAdapter.addDataSource(data_insert);
                             sourceListAdapter.notifyDataSetChanged();
+                            check();
                             add_company.dismiss();
                         }else{
                             Toast.makeText(getContext(), "Please insert data first", Toast.LENGTH_SHORT).show();
@@ -85,8 +88,19 @@ public class SourceFragment extends Fragment {
                 });
             }
         });
-
+        check();
         return source;
+    }
+
+    public void check() {
+        if (sourceListAdapter.getItemCount() == 0) {
+            list_source.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            list_source.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
     }
 
 }
