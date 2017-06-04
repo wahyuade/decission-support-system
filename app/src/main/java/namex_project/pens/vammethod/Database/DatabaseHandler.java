@@ -229,7 +229,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursor != null)
             cursor.moveToFirst();
 
-        SourceModel  data = new SourceModel(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), cursor.getString(3));
+        SourceModel  data = new SourceModel(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(3)), cursor.getString(2));
         return data;
     }
     //Menghitung total souce
@@ -349,6 +349,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    public CostModel readCostWhereId(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME_COSTS, new String[] {
+                        COST_ID,
+                        COST_ID_SOURCE,
+                        COST_ID_DEST,
+                        COST_ID_COMPANY,
+                        COST_COST},
+                COST_ID+"="+id, null,null, null, null);
+
+        if(cursor != null){
+            cursor.moveToFirst();
+            if(cursor.getCount()>0){
+                CostModel  data = new CostModel(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)), Integer.parseInt(cursor.getString(4)));
+                return data;
+            }else{
+                CostModel  data = new CostModel(0,0,0,0,0);
+                return data;
+            }
+        }else{
+            CostModel  data = new CostModel(0,0,0,0);
+            return data;
+        }
+    }
+
     public boolean updateCost(int id_source, int id_destination, int id_company, int cost){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues update_cost = new ContentValues();
@@ -411,10 +437,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursor.getCount()>0){
             for (int i = 0;i<cursor.getCount();i++){
                 cursor.moveToPosition(i);
-                if(i%Integer.parseInt(tot_s)==0){
-                    j++;
+                if((i%Integer.parseInt(tot_d))==0){
+                    hasil[++j][i%Integer.parseInt(tot_d)] = cursor.getString(0);
+                }else{
+                    hasil[j][i%Integer.parseInt(tot_d)] = cursor.getString(0);
                 }
-                hasil[j][i%Integer.parseInt(tot_d)] = cursor.getString(0);
             }
         }
         return hasil;
@@ -448,7 +475,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursor.getCount()>0){
             for (int i = 0;i<cursor.getCount();i++){
                 cursor.moveToPosition(i);
-                if(i%Integer.parseInt(tot_s)==0){
+                if(i%Integer.parseInt(tot_d)==0){
                     j++;
                 }
                 data[j][i%Integer.parseInt(tot_d)] = Integer.parseInt(cursor.getString(0));

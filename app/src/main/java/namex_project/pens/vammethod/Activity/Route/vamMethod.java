@@ -1,14 +1,20 @@
-package namex_project.pens.vammethod;
+package namex_project.pens.vammethod.Activity.Route;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import namex_project.pens.vammethod.Database.DatabaseHandler;
+import namex_project.pens.vammethod.Database.Model.OutputModel;
+import namex_project.pens.vammethod.R;
 
 public class vamMethod extends AppCompatActivity {
     public static final Integer BERISI = 1;
@@ -43,12 +49,23 @@ public class vamMethod extends AppCompatActivity {
     String[] key_source;
     String[] key_destination;
 
+    RecyclerView list_route;
+    TextView result_cost;
+
+    ArrayList<OutputModel> data_route;
+    OutputModel data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vam_method);
 
+        data_route = new ArrayList<>();
+
         getSupportActionBar().hide();
+
+        list_route = (RecyclerView)findViewById(R.id.list_route);
+        result_cost = (TextView)findViewById(R.id.result_cost);
 
         Intent data = getIntent();
         id_company = Integer.parseInt(data.getStringExtra("id_company"));
@@ -63,6 +80,13 @@ public class vamMethod extends AppCompatActivity {
         input_sumber = db.getSource(Integer.toString(id_company),Integer.toString(input_jumlah_sumber));
         input_tujuan = db.getDestination(Integer.toString(id_company),Integer.toString(input_jumlah_tujuan));
         metodeVam();
+
+        RouteAdapter routeAdapter = new RouteAdapter(vamMethod.this,data_route);
+
+        list_route.setLayoutManager(new LinearLayoutManager(vamMethod.this));
+        list_route.setAdapter(routeAdapter);
+
+
     }
     private void rubahMenjadiArrayList(){
         jumlah_tujuan = input_jumlah_tujuan;
@@ -208,10 +232,18 @@ public class vamMethod extends AppCompatActivity {
 
             //Jika nilai source capacity kurang dari dest capacity
             if((int)sumber.get(s)<(int)tujuan.get(t)){
+
+                data = new OutputModel();
+
                 //sum = digunakan untuk menyimpan jumlah biaya transportasi
                 sum=sum+ (int)biaya.get(key_cost[s][t]) * (int) sumber.get(s);
                 Log.d(key_cost[s][t],"lokasi yang akan di isi");
                 Log.d(String.valueOf(sumber.get(s)),"nilai");
+
+                data.setId(Integer.parseInt(key_cost[s][t]));
+                data.setHasil((Integer) sumber.get(s));
+
+                data_route.add(data);
                 tujuan.put(t,(int)tujuan.get(t)-(int)sumber.get(s));
                 //rf digunakan untuk mengandai bahwa baris tsb tidak akan diproses kembali saat pencarian selisih
                 rf.put(s,1);
@@ -221,9 +253,16 @@ public class vamMethod extends AppCompatActivity {
 
             //Jika nilai source capacity lebih dari dest capacity
             else if((int)sumber.get(s)>(int)tujuan.get(t)){
+                data = new OutputModel();
                 sum=sum+ (int)biaya.get(key_cost[s][t])*(int)tujuan.get(t);
                 Log.d(key_cost[s][t],"lokasi yang akan di isi");
                 Log.d(String.valueOf(tujuan.get(t)),"nilai");
+
+                data.setId(Integer.parseInt(key_cost[s][t]));
+                data.setHasil((Integer) tujuan.get(t));
+
+                data_route.add(data);
+
                 sumber.put(s,(int)sumber.get(s)-(int)tujuan.get(t));
                 //rf digunakan untuk mengandai bahwa kolom tsb tidak akan diproses kembali saat pencarian selisih
                 cf.put(t,1);
@@ -233,9 +272,16 @@ public class vamMethod extends AppCompatActivity {
 
             //Jika source capacity = dest capacity
             else if((int) sumber.get(s)==(int) tujuan.get(t)){
+                data = new OutputModel();
                 sum=sum+ (int)biaya.get(key_cost[s][t])*(int)tujuan.get(t);
                 Log.d(key_cost[s][t],"lokasi yang akan di isi");
                 Log.d(String.valueOf(tujuan.get(t)),"nilai");
+
+                data.setId(Integer.parseInt(key_cost[s][t]));
+                data.setHasil((Integer) tujuan.get(t));
+
+                data_route.add(data);
+
                 cf.put(t,1);
                 rf.put(s,1);
                 dinamis_sumber--;
@@ -243,6 +289,7 @@ public class vamMethod extends AppCompatActivity {
             }
         }//end of while
         Log.d(String.valueOf(sum),"biaya total");
+        result_cost.setText("Total Cost : "+String.valueOf(sum));
     }
     //digunakan untuk mengurutkan nilai cost terkecil
     void sort(Map a, Integer n) {
